@@ -873,7 +873,7 @@ DESENVOLVIMENTO DO SOFTWARE
 \begin_inset Newline newline
 \end_inset
 
-MODELOS DE AQUÍFEROS ANALÍTICOS
+MODELOS DE AQUÍFEROS ANALÍTCOS
 \begin_inset Newline newline
 \end_inset
 
@@ -895,14 +895,7 @@ Versão 1:
 \begin_inset Newline newline
 \end_inset
 
-RODRIGO SANTOS
-\end_layout
-
-\begin_layout Standard
-\align center
-
-\size large
-THALIA RODRIGUES
+RODRIGO SANTOS E THALIA RODRIGUES
 \begin_inset Newline newline
 \end_inset
 
@@ -935,7 +928,7 @@ MACAÉ - RJ
 \begin_inset Newline newline
 \end_inset
 
-Dezembro - 2021
+Novembro - 2021
 \end_layout
 
 \begin_layout Standard
@@ -995,8 +988,7 @@ status open
 
 
 \backslash
-lfoot{RODRIGO S.
- E THALIA R.} 
+lfoot{SeuNomeAqui} 
 \backslash
 rfoot{
 \backslash
@@ -1032,14 +1024,25 @@ today ele vai colocar data no material impresso
 
 \begin_layout Standard
 No presente projeto de engenharia desenvolve-se o software Modelos de Aquíferos
- Analíticos, um software aplicado à engenharia de petróleo e que utiliza
+ Analíticos, um software aplicado a engenharia de petróleo e que utiliza
  o paradigma da orientação a objetos.
 \end_layout
 
 \begin_layout Standard
-O software é da área de Engenharia de Reservatórios e permite a análise
+O software é da área de engenharia de reservatórios e permite a análise
  de três modelos de aquíferos analíticos, como seus comportamentos, diferenças,
  semelhanças e influência sobre reservatórios de petróleo.
+\end_layout
+
+\begin_layout Standard
+No presente projeto de engenharia desenvolve-se o software XXXX, um software
+ aplicado a engenharia de petróleo e que utiliza o paradigma da orientação
+ a objetos.
+\end_layout
+
+\begin_layout Itemize
+O primeiro parágrafo da introdução pode ser um super resumo do trabalho.
+ A ideia é fazer um resumo do resumo.
 \end_layout
 
 \begin_layout Section
@@ -1054,31 +1057,36 @@ name "sec:Escopo-do-Problema"
 \end_layout
 
 \begin_layout Standard
-No ambiente da Engenharia de Reservatórios, o objeto de estudo é o próprio
- reservatório de óleo e gás.
- No entanto, para que esse estudo ocorra de forma eficiente, é necessário
- que se entenda as características (porosidade, permeabilidade, volume de
- reservatório, presença e propriedades de aquíferos) e o comportamento sob
- produção.
- O objetivo de estudo deste software é analisar aquíferos analíticos com
- modelos distintos e como sua presença provoca efeitos em reservatórios
- de óleo e gás.
+Segundo o CREA/CONFEA um dos quesitos fundamentais que diferenciam a atuação
+ de um tecnólogo da atuação de um engenheiro é a capacidade de desenvolver
+ um projeto em engenharia; Neste trabalho, desenvolve-se um projeto em engenhari
+a de software aplicado a solução de um problema específico de engenharia
+ de petróleo.
+ Trabalhando-se com todo ciclo de um projeto, isto é, especificação, elaboração,
+ análise, projeto, desenvolvimento, teste e documentação.
  
 \end_layout
 
-\begin_layout Standard
-Os aquíferos são facilmente encontrados em locais próximos aos reservatórios
- de hidrocarbonetos.
- Esses podem ser pequenos no tamanho e, por isso, terem seu efeito sobre
- o reservatório considerado desprezível; ou podem ser grandes, às vezes
- até maior do que os reservatórios de óleo e gás, e provocarem efeitos sobre
- eles.
- A queda de pressão devida à produção de fluidos causa a expansão do aquífero
- contíguo a zona de óleo, ocorre, então uma invasão da zona de óleo pelo
- volume de água excedente.
- Esse influxo de água, além de manter a pressão elevada na zona de óleo,
- desloca o fluido, facilitando a produção.
- 
+\begin_layout Itemize
+ESTE MODELO TEM TEXTOS EXPLICATVOS QUE DEVEM SER ELIMINADOS DA VERSÃO FINAL.
+ O OBJETIVO DE COLOCAR AS EXPLICAÇÕES É FACILITAR O ENTENDIMENTO DO QUE
+ DEVE ENTRAR EM CADA SEÇÃO.
+\end_layout
+
+\begin_layout Itemize
+Definir o escopo do projeto de engenharia, a ideia geral do software, acentuar
+ sua importância, usos e aplicações em engenharia [de petróleo].
+\end_layout
+
+\begin_layout Itemize
+Delimitar o assunto.
+ Situá-lo no tempo e no espaço.
+ Situá-lo em relação a outros softwares.
+\end_layout
+
+\begin_layout Itemize
+Neste capítulo podem entrar figuras que ilustram a ideia geral, o detalhamento
+ será feito depois, na elaboração.
 \end_layout
 
 \begin_layout Section
@@ -1106,14 +1114,14 @@ Objetivo geral:
 
 \begin_deeper
 \begin_layout Itemize
-Desenvolver um projeto de engenharia de software para analisar os diferentes
- modelos de aquíferos analíticos, com enfoque em aquíferos de grandes dimensões
- onde torna-se necessário um modelo matemático que inclua a dependência
- do tempo, tendo em vista que demanda um certo tempo para o aquífero responder
- integralmente a uma mudança de pressão no reservatório.
- Três modelos serão estudados neste projeto: Modelo de Van Everdingen &
- Hurst (1949), Modelo de Carter-Tracy (1960) e Modelo aproximado de Fetkovich
- (1971).
+Descreva aqui o objetivo geral do projeto de engenharia, incluindo vínculos
+ com engenharia de petróleo e com modelagem matemática computacional (ideia
+ de lógica, algoritmos,...).
+\end_layout
+
+\begin_layout Itemize
+Desenvolver um projeto de engenharia de software para ...[.....descrever de forma
+ clara, direta, objetiva, o objetivo geral do software].
 \end_layout
 
 \end_deeper
@@ -1141,30 +1149,17 @@ o os fluxos de processamento).
 \end_layout
 
 \begin_layout Itemize
-Estimar o influxo de água com base em suposições que descrevem as característica
-s dos aquíferos.
+Calcular XXX[.....descrever de forma clara, direta, objetiva, cada objetivo específic
+o, cada parte do software].
 \end_layout
 
 \begin_layout Itemize
-Estimar o influxo de água através de modelos matemáticos que incluam a dependênc
-ia do tempo.
+Calcular XXX[.....descrever de forma clara, direta, objetiva, cada objetivo específic
+o, cada parte do software].
 \end_layout
 
 \begin_layout Itemize
-Cálculo da vazão que o aquífero fornece (ou do influxo acumulado) em relação
- a queda de pressão.
-\end_layout
-
-\begin_layout Itemize
-Prever o desempenho de reservatorios de água.
-\end_layout
-
-\begin_layout Itemize
-Representar a compressibilidade do sistema.
-\end_layout
-
-\begin_layout Itemize
-Realizar simulações para teste do software desenvolvido.
+Simular (realizar simulações para teste do software desenvolvido).
 \end_layout
 
 \begin_layout Itemize

@@ -279,7 +279,6 @@ doxygen
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
@@ -287,8 +286,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../figurasrodrigoethalia/Cap 8/02.PNG
-	scale 60
+	filename C:/Users/rodriguinho/Desktop/AARE-ProgramaçãoPrática2021/ProjetoEngenharia-rodrigoethalia-master/figurasrodrigoethalia/Cap 8/02.PNG
 	rotateAngle 90
 
 \end_inset
@@ -319,7 +317,6 @@ Lista de classes de Van Everdingen - Doxygen
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
@@ -327,8 +324,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../figurasrodrigoethalia/Cap 8/03.PNG
-	scale 60
+	filename C:/Users/rodriguinho/Desktop/AARE-ProgramaçãoPrática2021/ProjetoEngenharia-rodrigoethalia-master/figurasrodrigoethalia/Cap 8/03.PNG
 	rotateAngle 90
 
 \end_inset
@@ -348,6 +344,10 @@ Hierarquia de classes de Van Everdingen - Doxygen
 
 \end_layout
 
+\begin_layout Plain Layout
+
+\end_layout
+
 \end_inset
 
 
@@ -355,28 +355,15 @@ Hierarquia de classes de Van Everdingen - Doxygen
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ../figurasrodrigoethalia/Cap 8/04.PNG
-	scale 60
-	rotateAngle 90
-
-\end_inset
-
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Lista de classes de Carter-Tracy e Fetkovich - Doxygen 
+Lista de classes Carter-Tracy e Fetkovich - Doxygen 
 \end_layout
 
 \end_inset
@@ -395,20 +382,11 @@ Lista de classes de Carter-Tracy e Fetkovich - Doxygen
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ../figurasrodrigoethalia/Cap 8/05.PNG
-	scale 60
-	rotateAngle 90
-
-\end_inset
-
 
 \end_layout
 
