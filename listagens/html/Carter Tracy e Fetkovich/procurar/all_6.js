@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['path_0',['Path',['../class_gnuplot.html#a3920eab5d6595ea80d4bc4f72b06dab1',1,'Gnuplot']]],
+  ['plot_5fequation_1',['plot_equation',['../class_gnuplot.html#a42dfb8c9d4636745c7be277ed818e849',1,'Gnuplot']]],
+  ['plot_5fequation3d_2',['plot_equation3d',['../class_gnuplot.html#a79aed3a6927f7d1d3497cba441e8a943',1,'Gnuplot']]],
+  ['plot_5fimage_3',['plot_image',['../class_gnuplot.html#ab71117b8fa74d53ea20c313717d86b5c',1,'Gnuplot']]],
+  ['plot_5fslope_4',['plot_slope',['../class_gnuplot.html#a51ea5105eb87285820bb93910f8d346c',1,'Gnuplot']]],
+  ['plot_5fx_5',['plot_x',['../class_gnuplot.html#a9400d43204b9df62851c063aee604f0d',1,'Gnuplot']]],
+  ['plot_5fxy_6',['plot_xy',['../class_gnuplot.html#a777b6a5474951d6d023dff4237d80a2b',1,'Gnuplot']]],
+  ['plot_5fxy_5ferr_7',['plot_xy_err',['../class_gnuplot.html#a3dd3934b09094a9ba48035a2edf4d4fd',1,'Gnuplot']]],
+  ['plot_5fxyz_8',['plot_xyz',['../class_gnuplot.html#aee30f21a00a4f31c8356a2ef1f0e26e3',1,'Gnuplot']]],
+  ['plotequation_9',['PlotEquation',['../class_gnuplot.html#a54a8351d4ea06e4873a73fa200835380',1,'Gnuplot']]],
+  ['plotequation3d_10',['PlotEquation3d',['../class_gnuplot.html#a1bd342bc27ae0d3155bfb4847431f5a3',1,'Gnuplot']]],
+  ['plotfile_11',['PlotFile',['../class_gnuplot.html#ac9383787c3831cada55dd081b0592857',1,'Gnuplot::PlotFile(const std::string &amp;filename, const int column=1, const std::string &amp;title=&quot;&quot;)'],['../class_gnuplot.html#ac19856a234621520bf08ce5d0105d436',1,'Gnuplot::PlotFile(const std::string &amp;filename, const int column_x=1, const int column_y=2, const std::string &amp;title=&quot;&quot;)'],['../class_gnuplot.html#a75a67ae376eb94892aa5ba48ae6c29c5',1,'Gnuplot::PlotFile(const std::string &amp;filename, const int column_x=1, const int column_y=2, const int column_z=3, const std::string &amp;title=&quot;&quot;)']]],
+  ['plotfile_5fx_12',['plotfile_x',['../class_gnuplot.html#a4ca35415fa5560764597cfdfa46c6c40',1,'Gnuplot']]],
+  ['plotfile_5fxy_13',['plotfile_xy',['../class_gnuplot.html#af226f395310d3c5c4f8b4d2aaf5d8823',1,'Gnuplot']]],
+  ['plotfile_5fxy_5ferr_14',['plotfile_xy_err',['../class_gnuplot.html#a33ab4bb031fa6a6b798c90a9089648e9',1,'Gnuplot']]],
+  ['plotfile_5fxyz_15',['plotfile_xyz',['../class_gnuplot.html#abd1c17c49fc59979a1143384c77c5b66',1,'Gnuplot']]],
+  ['plotfilexyerrorbar_16',['PlotFileXYErrorBar',['../class_gnuplot.html#abe9f9f5301c1dcc35acecbf854623085',1,'Gnuplot']]],
+  ['plotimage_17',['PlotImage',['../class_gnuplot.html#a93fa9569c46f615840fcb364a29059a9',1,'Gnuplot']]],
+  ['plotslope_18',['PlotSlope',['../class_gnuplot.html#af4912dcec86b05a74b27c30adddc5113',1,'Gnuplot']]],
+  ['plotvector_19',['PlotVector',['../class_gnuplot.html#ac80f65502e2af281ae7c8c4a73d604d8',1,'Gnuplot::PlotVector(const std::vector&lt; double &gt; &amp;x, const std::string &amp;title=&quot;&quot;)'],['../class_gnuplot.html#aefa64bbed449a6c7c1eb1fabb392d3f6',1,'Gnuplot::PlotVector(const std::vector&lt; double &gt; &amp;x, const std::vector&lt; double &gt; &amp;y, const std::string &amp;title=&quot;&quot;)'],['../class_gnuplot.html#a2b2b8d5ffa6e9f0cc06617449e84c286',1,'Gnuplot::PlotVector(const std::vector&lt; double &gt; &amp;x, const std::vector&lt; double &gt; &amp;y, const std::vector&lt; double &gt; &amp;z, const std::string &amp;title=&quot;&quot;)']]],
+  ['plotvectorxyerrorbar_20',['PlotVectorXYErrorBar',['../class_gnuplot.html#ac19dffd0bd609bb8de3cc29250d9f4dd',1,'Gnuplot']]],
+  ['pointsize_21',['PointSize',['../class_gnuplot.html#af81087e5b9753620d73b66f6229d2646',1,'Gnuplot']]]
+];
