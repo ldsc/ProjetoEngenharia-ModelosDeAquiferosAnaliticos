@@ -1,9 +1,11 @@
-#include "CSolverInfluxo.h"
+#include "CSolverVanEverdingen.h"
 
-int main (){
+
+int main(void){
 	
-	CSolverInfluxo executa;
+	CSolverVanEverdingen executa;
 	
-	executa.Executa();
+	executa.Solver();
 	
+	return 0;
 }

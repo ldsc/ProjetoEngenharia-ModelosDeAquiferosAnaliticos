@@ -438,7 +438,7 @@ Gnuplot& Gnuplot::savetops(const std::string &filename)
     cmdstr << "set output \"./images/" << filename << ".png\"";
     this->cmd(cmdstr.str());
     this->Replot();
-
+    
     return *this;
 }
 //----------------------------------------------------------------------------------
