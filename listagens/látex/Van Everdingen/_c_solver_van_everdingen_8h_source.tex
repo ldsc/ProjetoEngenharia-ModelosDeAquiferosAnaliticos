@@ -1,0 +1,42 @@
+\hypertarget{_c_solver_van_everdingen_8h_source}{}\doxysection{CSolver\+Van\+Everdingen.\+h}
+\label{_c_solver_van_everdingen_8h_source}\index{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/VanEverdingen/CSolverVanEverdingen.h@{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/VanEverdingen/CSolverVanEverdingen.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CSOLVERVANEVERDINGEN\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CSOLVERVENEVERDINGER\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}CStehfest.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}CGnuplot.h"{}}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_c_solver_van_everdingen}{CSolverVanEverdingen}}}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{15         }
+\DoxyCodeLine{16         \mbox{\hyperlink{class_c_forma_reservatorio}{CFormaReservatorio}} forma;}
+\DoxyCodeLine{17         \mbox{\hyperlink{class_c_stehfest}{CStehfest}} Stehfest;}
+\DoxyCodeLine{18         \mbox{\hyperlink{class_gnuplot}{Gnuplot}} plot, plot2, plot3;}
+\DoxyCodeLine{19         }
+\DoxyCodeLine{20         std::vector <double> TD, ReD;}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{public}:}
+\DoxyCodeLine{23         }
+\DoxyCodeLine{24         \mbox{\hyperlink{class_c_solver_van_everdingen}{CSolverVanEverdingen}}()\{\};}
+\DoxyCodeLine{25         }
+\DoxyCodeLine{26         \textcolor{keywordtype}{void} Solver();}
+\DoxyCodeLine{27         \textcolor{keywordtype}{void} Plot(std::vector <double> \_WD, std::vector <double> \_TD, std::string name, \textcolor{keywordtype}{bool} \_setY);}
+\DoxyCodeLine{28         \textcolor{keywordtype}{void} Plot2(std::vector <double> \_WD, std::vector <double> \_TD, std::string name, \textcolor{keywordtype}{bool} \_setY);}
+\DoxyCodeLine{29         \textcolor{keywordtype}{void} Plot3(std::vector <double> \_WD, std::vector <double> \_TD, std::string name);       }
+\DoxyCodeLine{30         }
+\DoxyCodeLine{31         \mbox{\hyperlink{class_c_solver_van_everdingen}{\string~CSolverVanEverdingen}}()\{\};}
+\DoxyCodeLine{32     }
+\DoxyCodeLine{33 \};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,48 @@
+\hypertarget{_c_stehfest_8h_source}{}\doxysection{CStehfest.\+h}
+\label{_c_stehfest_8h_source}\index{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/VanEverdingen/CStehfest.h@{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/VanEverdingen/CStehfest.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CSTEHFEST\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CSTEHFEST\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}CReservatorioRadialInfinito.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}CReservatorioRadialSelado.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}CReservatorioRadialManutencao.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}CReservatorioLinearInfinito.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}CReservatorioLinearSelado.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}CReservatorioLinearManutencao.h"{}} }
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{class }\mbox{\hyperlink{class_c_stehfest}{CStehfest}}}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     }
+\DoxyCodeLine{16     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{17         }
+\DoxyCodeLine{18         \textcolor{keywordtype}{double} nn2, nn21, z, ln2\_on\_t, sum, p, ilt, L, Rd;}
+\DoxyCodeLine{19         std::vector <double> v;}
+\DoxyCodeLine{20         \mbox{\hyperlink{class_c_reservatorio_radial_infinito}{CReservatorioRadialInfinito}} radialinfinito;}
+\DoxyCodeLine{21         \mbox{\hyperlink{class_c_reservatorio_radial_selado}{CReservatorioRadialSelado}} radialselado;}
+\DoxyCodeLine{22         \mbox{\hyperlink{class_c_reservatorio_radial_manutencao}{CReservatorioRadialManutencao}} radialmanutencao;}
+\DoxyCodeLine{23         \mbox{\hyperlink{class_c_reservatorio_linear_infinito}{CReservatorioLinearInfinito}} linearinfinito;}
+\DoxyCodeLine{24         \mbox{\hyperlink{class_c_reservatorio_linear_selado}{CReservatorioLinearSelado}} linearselado;}
+\DoxyCodeLine{25         \mbox{\hyperlink{class_c_reservatorio_linear_manutencao}{CReservatorioLinearManutencao}} linearmanutencao;}
+\DoxyCodeLine{26         }
+\DoxyCodeLine{27     \textcolor{keyword}{public}:}
+\DoxyCodeLine{28         }
+\DoxyCodeLine{29         \mbox{\hyperlink{class_c_stehfest}{CStehfest}}(\textcolor{keywordtype}{double} \_RD = 1, \textcolor{keywordtype}{double} \_L = 12) : L(\_L), Rd(\_RD)\{\};}
+\DoxyCodeLine{30         }
+\DoxyCodeLine{31         \textcolor{keywordtype}{double} Factorial(\textcolor{keywordtype}{int} \_i);}
+\DoxyCodeLine{32         \textcolor{keywordtype}{double} StehfestRadialInfinito(\textcolor{keywordtype}{double} \_TD);}
+\DoxyCodeLine{33         \textcolor{keywordtype}{double} StehfestRadialSelado (\textcolor{keywordtype}{double} \_TD, \textcolor{keywordtype}{double} \_RD);}
+\DoxyCodeLine{34         \textcolor{keywordtype}{double} StehfestRadialManutencao (\textcolor{keywordtype}{double} \_TD, \textcolor{keywordtype}{double} \_RD);}
+\DoxyCodeLine{35         \textcolor{keywordtype}{double} StehfestLinearInfinito (\textcolor{keywordtype}{double} \_TD);}
+\DoxyCodeLine{36         \textcolor{keywordtype}{double} StehfestLinearSelado (\textcolor{keywordtype}{double} \_TD);}
+\DoxyCodeLine{37         \textcolor{keywordtype}{double} StehfestLinearManutencao (\textcolor{keywordtype}{double} \_TD);}
+\DoxyCodeLine{38         }
+\DoxyCodeLine{39         \mbox{\hyperlink{class_c_stehfest}{\string~CStehfest}}()\{\};}
+\DoxyCodeLine{40 \};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

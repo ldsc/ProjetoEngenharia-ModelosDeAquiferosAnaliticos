@@ -1,0 +1,519 @@
+\hypertarget{_c_gnuplot_8h_source}{}\doxysection{CGnuplot.\+h}
+\label{_c_gnuplot_8h_source}\index{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/VanEverdingen/CGnuplot.h@{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/VanEverdingen/CGnuplot.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{comment}{//               Classe de Interface em C++ para o programa gnuplot.                  //}}
+\DoxyCodeLine{4 \textcolor{comment}{}\textcolor{comment}{// Esta interface usa pipes e nao ira funcionar em sistemas que nao suportam}}
+\DoxyCodeLine{5 \textcolor{comment}{// o padrao POSIX pipe. }}
+\DoxyCodeLine{6 \textcolor{comment}{// O mesmo foi testado em sistemas Windows (MinGW e Visual C++) e Linux(GCC/G++)}}
+\DoxyCodeLine{7 \textcolor{comment}{// Este programa foi originalmente escrito por:}}
+\DoxyCodeLine{8 \textcolor{comment}{// Historico de versoes:}}
+\DoxyCodeLine{9 \textcolor{comment}{// 0. Interface para linguagem C}}
+\DoxyCodeLine{10 \textcolor{comment}{//    por N. Devillard (27/01/03)}}
+\DoxyCodeLine{11 \textcolor{comment}{// 1. Interface para C++: tradução direta da versao em C}}
+\DoxyCodeLine{12 \textcolor{comment}{//    por Rajarshi Guha (07/03/03)}}
+\DoxyCodeLine{13 \textcolor{comment}{// 2. Correcoes para compatibilidadde com Win32 }}
+\DoxyCodeLine{14 \textcolor{comment}{//    por V. Chyzhdzenka (20/05/03)}}
+\DoxyCodeLine{15 \textcolor{comment}{// 3. Novos métodos membros, correcoes para compatibilidade com Win32 e Linux }}
+\DoxyCodeLine{16 \textcolor{comment}{//    por M. Burgis (10/03/08)}}
+\DoxyCodeLine{17 \textcolor{comment}{// 4. Traducao para Portugues, documentacao -\/ javadoc/doxygen, }}
+\DoxyCodeLine{18 \textcolor{comment}{//    e modificacoes na interface (adicao de interface alternativa)}}
+\DoxyCodeLine{19 \textcolor{comment}{//    por Bueno.A.D. (30/07/08)}}
+\DoxyCodeLine{20 \textcolor{comment}{//   Tarefas: }}
+\DoxyCodeLine{21 \textcolor{comment}{//   (v1)}}
+\DoxyCodeLine{22 \textcolor{comment}{//   Documentar toda classe}}
+\DoxyCodeLine{23 \textcolor{comment}{//   Adicionar novos métodos, criando atributos adicionais se necessario.}}
+\DoxyCodeLine{24 \textcolor{comment}{//   Adotar padrao C++, isto e, usar sobrecarga nas chamadas.}}
+\DoxyCodeLine{25 \textcolor{comment}{//   (v2)}}
+\DoxyCodeLine{26 \textcolor{comment}{//   Criar classe herdeira CGnuplot, que inclui somente a nova interface.}}
+\DoxyCodeLine{27 \textcolor{comment}{//   como e herdeira, o usuario vai poder usar nome antigos.}}
+\DoxyCodeLine{28 \textcolor{comment}{//   Vantagem: preserva classe original, cria nova interface, fica a critério do usuário}}
+\DoxyCodeLine{29 \textcolor{comment}{//   qual interface utilizar.}}
+\DoxyCodeLine{31 \textcolor{comment}{}\textcolor{comment}{// Requisitos:}}
+\DoxyCodeLine{32 \textcolor{comment}{// -\/ O programa gnuplot deve estar instalado (veja http://www.gnuplot.info/download.html)}}
+\DoxyCodeLine{33 \textcolor{comment}{// -\/ No Windows: setar a Path do Gnuplot (i.e. C:/program files/gnuplot/bin)}}
+\DoxyCodeLine{34 \textcolor{comment}{//             ou setar a path usando: Gnuplot::set\_GNUPlotPath(const std::string \&path);}}
+\DoxyCodeLine{35 \textcolor{comment}{//             Gnuplot::set\_GNUPlotPath("{}C:/program files/gnuplot/bin"{});}}
+\DoxyCodeLine{36 \textcolor{comment}{// -\/ Para um melhor uso, consulte o manual do gnuplot,}}
+\DoxyCodeLine{37 \textcolor{comment}{//   no GNU/Linux digite: man gnuplot ou info gnuplot.}}
+\DoxyCodeLine{38 \textcolor{comment}{//   }}
+\DoxyCodeLine{39 \textcolor{comment}{// -\/ Veja aula em http://www.lenep.uenf.br/\string~bueno/DisciplinaSL/  }}
+\DoxyCodeLine{40 \textcolor{comment}{//   }}
+\DoxyCodeLine{42 \textcolor{comment}{}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#ifndef CGnuplot\_h}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#define CGnuplot\_h}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include <iostream>}             \textcolor{comment}{// Para teste}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#include <stdexcept>}        \textcolor{comment}{// Heranca da classe std::runtime\_error em GnuplotException}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#include <cstdio>}       \textcolor{comment}{// Para acesso a arquivos FILE}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{57 \textcolor{keyword}{class }\mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}} : \textcolor{keyword}{public} std::runtime\_error}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59 \textcolor{keyword}{public}:}
+\DoxyCodeLine{61   \mbox{\hyperlink{class_gnuplot_exception_a8b324a9ef4d3f75079d41ecd61c62d44}{GnuplotException}} (\textcolor{keyword}{const} std::string \& msg):std::runtime\_error (msg) \{\}}
+\DoxyCodeLine{62 \};}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{69 \textcolor{keyword}{class }\mbox{\hyperlink{class_gnuplot}{Gnuplot}}}
+\DoxyCodeLine{70 \{}
+\DoxyCodeLine{71 \textcolor{keyword}{private}:}
+\DoxyCodeLine{72   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Atributos}}
+\DoxyCodeLine{73   FILE *  gnucmd;   }
+\DoxyCodeLine{74   \textcolor{keywordtype}{bool}    valid;    }
+\DoxyCodeLine{75   \textcolor{keywordtype}{bool}    two\_dim;  }
+\DoxyCodeLine{76   \textcolor{keywordtype}{int}     nplots;   }
+\DoxyCodeLine{77   std::string pstyle;   }
+\DoxyCodeLine{78   std::string smooth;   }
+\DoxyCodeLine{79   std::vector <std::string> tmpfile\_list; }
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/flags}}
+\DoxyCodeLine{82   \textcolor{keywordtype}{bool} fgrid;           }
+\DoxyCodeLine{83   \textcolor{keywordtype}{bool} fhidden3d;       }
+\DoxyCodeLine{84   \textcolor{keywordtype}{bool} fcontour;    }
+\DoxyCodeLine{85   \textcolor{keywordtype}{bool} fsurface;    }
+\DoxyCodeLine{86   \textcolor{keywordtype}{bool} flegend;     }
+\DoxyCodeLine{87   \textcolor{keywordtype}{bool} ftitle;      }
+\DoxyCodeLine{88   \textcolor{keywordtype}{bool} fxlogscale;  }
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} fylogscale;  }
+\DoxyCodeLine{90   \textcolor{keywordtype}{bool} fzlogscale;  }
+\DoxyCodeLine{91   \textcolor{keywordtype}{bool} fsmooth;         }
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{94   \textcolor{comment}{// Atributos estaticos (compartilhados por todos os objetos)}}
+\DoxyCodeLine{95   \textcolor{keyword}{static} \textcolor{keywordtype}{int} tmpfile\_num;               }
+\DoxyCodeLine{96   \textcolor{keyword}{static} std::string m\_sGNUPlotFileName;}
+\DoxyCodeLine{97   \textcolor{keyword}{static} std::string m\_sGNUPlotPath;    }
+\DoxyCodeLine{98   \textcolor{keyword}{static} std::string terminal\_std;  }
+\DoxyCodeLine{99   }
+\DoxyCodeLine{100   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Metodos}}
+\DoxyCodeLine{101   \textcolor{comment}{// Funcoes membro (métodos membro) (funcoes auxiliares)}}
+\DoxyCodeLine{104 \textcolor{comment}{}  \textcolor{keywordtype}{void}  init ();                }
+\DoxyCodeLine{105 }
+\DoxyCodeLine{108   \textcolor{keywordtype}{void} Init() \{ init(); \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{111   std::string  create\_tmpfile (std::ofstream \& tmp); }
+\DoxyCodeLine{112 }
+\DoxyCodeLine{114   std::string  CreateTmpFile (std::ofstream \& tmp) \{ \textcolor{keywordflow}{return}  create\_tmpfile(tmp); \}}
+\DoxyCodeLine{115  }
+\DoxyCodeLine{116   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{117   \textcolor{comment}{// Funcoes estaticas (static functions)}}
+\DoxyCodeLine{119 \textcolor{comment}{}  \textcolor{keyword}{static} \textcolor{keywordtype}{bool}  get\_program\_path (); }
+\DoxyCodeLine{120 }
+\DoxyCodeLine{122   \textcolor{keyword}{static} \textcolor{keywordtype}{bool}  Path() \{ \textcolor{keywordflow}{return} get\_program\_path(); \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{125   \textcolor{keyword}{static} \textcolor{keywordtype}{bool}  file\_exists (\textcolor{keyword}{const} std::string \& filename, \textcolor{keywordtype}{int} mode = 0); }
+\DoxyCodeLine{126 }
+\DoxyCodeLine{128   \textcolor{keyword}{static} \textcolor{keywordtype}{bool}  FileExists  (\textcolor{keyword}{const} std::string \& filename, \textcolor{keywordtype}{int} mode = 0) }
+\DoxyCodeLine{129                 \{ \textcolor{keywordflow}{return} file\_exists( filename, mode ); \}}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{132 \textcolor{keyword}{public}:}
+\DoxyCodeLine{133   \textcolor{comment}{// Opcional: Seta path do gnuplot manualmente}}
+\DoxyCodeLine{134   \textcolor{comment}{// No windows: a path (caminho) deve ser dada usando '/' e nao backslash '\(\backslash\)'}}
+\DoxyCodeLine{136 \textcolor{comment}{}  \textcolor{comment}{//ex: CGnuplot::set\_GNUPlotPath ("{}\(\backslash\)"{}C:/program files/gnuplot/bin/\(\backslash\)"{}"{});}}
+\DoxyCodeLine{137     }
+\DoxyCodeLine{138   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_gnuplot_a67cae885c26ced821e335d98986f1967}{set\_GNUPlotPath}} (\textcolor{keyword}{const} std::string \& path);}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{141   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_gnuplot_a3920eab5d6595ea80d4bc4f72b06dab1}{Path}}(\textcolor{keyword}{const} std::string \& path) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a67cae885c26ced821e335d98986f1967}{set\_GNUPlotPath}}(path); \}}
+\DoxyCodeLine{142 \textcolor{comment}{// }}
+\DoxyCodeLine{145 \textcolor{comment}{}  \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_gnuplot_a21feba7a3916708b742c3dc25850ab2f}{set\_terminal\_std}} (\textcolor{keyword}{const} std::string \& type);}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{150   \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_gnuplot_a4039b0fdcf0e3fbf97dac187825138fb}{Terminal}} (\textcolor{keyword}{const} std::string \& type) \{ \mbox{\hyperlink{class_gnuplot_a21feba7a3916708b742c3dc25850ab2f}{set\_terminal\_std}}(type); \}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152  \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Construtores}}
+\DoxyCodeLine{154 \textcolor{comment}{}  \mbox{\hyperlink{class_gnuplot_a187eb517b362cf379492fe7f1621ee50}{Gnuplot}} (\textcolor{keyword}{const} std::string \& style = \textcolor{stringliteral}{"{}points"{}});}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{157   \mbox{\hyperlink{class_gnuplot_a187eb517b362cf379492fe7f1621ee50}{Gnuplot}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{158        \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{159        \textcolor{keyword}{const} std::string \& style = \textcolor{stringliteral}{"{}points"{}},}
+\DoxyCodeLine{160        \textcolor{keyword}{const} std::string \& labelx = \textcolor{stringliteral}{"{}x"{}},}
+\DoxyCodeLine{161        \textcolor{keyword}{const} std::string \& labely = \textcolor{stringliteral}{"{}y"{}});}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{164   \mbox{\hyperlink{class_gnuplot_a187eb517b362cf379492fe7f1621ee50}{Gnuplot}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{165        \textcolor{keyword}{const} std::vector < double >\&y,}
+\DoxyCodeLine{166        \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{167        \textcolor{keyword}{const} std::string \& style = \textcolor{stringliteral}{"{}points"{}},}
+\DoxyCodeLine{168        \textcolor{keyword}{const} std::string \& labelx = \textcolor{stringliteral}{"{}x"{}},}
+\DoxyCodeLine{169        \textcolor{keyword}{const} std::string \& labely = \textcolor{stringliteral}{"{}y"{}});}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{172   \mbox{\hyperlink{class_gnuplot_a187eb517b362cf379492fe7f1621ee50}{Gnuplot}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{173        \textcolor{keyword}{const} std::vector < double >\&y,}
+\DoxyCodeLine{174        \textcolor{keyword}{const} std::vector < double >\&z,}
+\DoxyCodeLine{175        \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{176        \textcolor{keyword}{const} std::string \& style = \textcolor{stringliteral}{"{}points"{}},}
+\DoxyCodeLine{177        \textcolor{keyword}{const} std::string \& labelx = \textcolor{stringliteral}{"{}x"{}},}
+\DoxyCodeLine{178        \textcolor{keyword}{const} std::string \& labely = \textcolor{stringliteral}{"{}y"{}},}
+\DoxyCodeLine{179        \textcolor{keyword}{const} std::string \& labelz = \textcolor{stringliteral}{"{}z"{}});}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{182    \mbox{\hyperlink{class_gnuplot_a78a68f621caa87d1f34324fcd093c7bd}{\string~Gnuplot}} ();}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{186 \textcolor{comment}{}  \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a07607803ede8dd5416906df0a1924fc5}{cmd}} (\textcolor{keyword}{const} std::string \& cmdstr);}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{189   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a59921d80c0315c95fc5f2cf28e6718df}{Cmd}} (\textcolor{keyword}{const} std::string \& cmdstr)     \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a07607803ede8dd5416906df0a1924fc5}{cmd}}(cmdstr); \}}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{192   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_abd081059ee059e67c204585c456d41a2}{Command}} (\textcolor{keyword}{const} std::string \& cmdstr) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a07607803ede8dd5416906df0a1924fc5}{cmd}}(cmdstr); \}}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{195   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ae56495dc15f23d32f099129d3a50dd6c}{operator<< }}(\textcolor{keyword}{const} std::string \& cmdstr);}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{199 \textcolor{comment}{}  \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a356d2faaa79f08d13fec9718b776b28d}{showonscreen}} ();        \textcolor{comment}{// Janela de saida e setada como default (win/x11/aqua)}}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{202   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aada22f547a0a9ac26adea4a4ec836ea4}{ShowOnScreen}} ()                      \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a356d2faaa79f08d13fec9718b776b28d}{showonscreen}}();  \};}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{206   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a032072c7c01b508a7535a17fb08562b1}{savetops}} (\textcolor{keyword}{const} std::string \& filename = \textcolor{stringliteral}{"{}gnuplot\_output"{}});}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{210   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a9dd058e30035a4a0009b38012d38efd0}{SaveTops}} (\textcolor{keyword}{const} std::string \& filename = \textcolor{stringliteral}{"{}gnuplot\_output"{}}) }
+\DoxyCodeLine{211                                       \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a032072c7c01b508a7535a17fb08562b1}{savetops}}(filename); \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{215   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a14c986c74017988acd306f42005c0fb7}{savetopng}} (\textcolor{keyword}{const} std::string \& filename = \textcolor{stringliteral}{"{}gnuplot\_output"{}});}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{219   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aaa38f9e689fca36da83a660f4b9cf36b}{SaveTopng}} (\textcolor{keyword}{const} std::string \& filename = \textcolor{stringliteral}{"{}gnuplot\_output"{}})}
+\DoxyCodeLine{220                                       \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a14c986c74017988acd306f42005c0fb7}{savetopng}}(filename); \}}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{224   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a0808fae92ce7e38af3bed8897748acf0}{savetojpeg}} (\textcolor{keyword}{const} std::string \& filename = \textcolor{stringliteral}{"{}gnuplot\_output"{}});}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{228   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a190d66f0efa9cf3a90633543f5a59328}{SaveTojpeg}} (\textcolor{keyword}{const} std::string \& filename = \textcolor{stringliteral}{"{}gnuplot\_output"{}})}
+\DoxyCodeLine{229                                       \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a0808fae92ce7e38af3bed8897748acf0}{savetojpeg}}(filename); \}}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{235   \mbox{\hyperlink{class_gnuplot}{Gnuplot}}\& \mbox{\hyperlink{class_gnuplot_a3986669a73f911715d0baa4ab83d416c}{SaveTo}}(\textcolor{keyword}{const} std::string \&filename,\textcolor{keyword}{const} std::string \&terminal\_type, std::string flags=\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{236                                       }
+\DoxyCodeLine{237   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ set e unset}}
+\DoxyCodeLine{241 \textcolor{comment}{}  \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_acfdcda292650775ebed4683e8e1515b5}{set\_style}} (\textcolor{keyword}{const} std::string \& stylestr = \textcolor{stringliteral}{"{}points"{}});}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{246   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aef1de768157bb75e080d1c60a1756e42}{Style}} (\textcolor{keyword}{const} std::string \& stylestr = \textcolor{stringliteral}{"{}points"{}}) }
+\DoxyCodeLine{247                          \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_acfdcda292650775ebed4683e8e1515b5}{set\_style}}(stylestr); \}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{254   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aa18386919da2ec4c994f1f9c7195d384}{set\_smooth}} (\textcolor{keyword}{const} std::string \& stylestr = \textcolor{stringliteral}{"{}csplines"{}});}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{257   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aec18795f217d6d8791275a1c866b550e}{unset\_smooth}} ();        \textcolor{comment}{// A suavizacao nao e setada por padrao (default)}}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{264   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a29497993835d6b72df35188564ff71cd}{Smooth}}(\textcolor{keyword}{const} std::string \& stylestr = \textcolor{stringliteral}{"{}csplines"{}})     }
+\DoxyCodeLine{265                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aa18386919da2ec4c994f1f9c7195d384}{set\_smooth}}(stylestr); \}}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{267   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a29497993835d6b72df35188564ff71cd}{Smooth}}( \textcolor{keywordtype}{int} \_fsmooth ) }
+\DoxyCodeLine{268                                                 \{ \textcolor{keywordflow}{if}( fsmooth = \_fsmooth )}
+\DoxyCodeLine{269                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_af845efc728a90d7e10de764eff0b2423}{set\_contour}}(); }
+\DoxyCodeLine{270                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{271                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a39d10e6ce85875939a9c594d132a10d7}{unset\_contour}}();}
+\DoxyCodeLine{272                                                 \}}
+\DoxyCodeLine{274   \textcolor{comment}{//Gnuplot \&  UnsetSmooth()                \{ return unset\_smooth (); \}}}
+\DoxyCodeLine{275 }
+\DoxyCodeLine{277   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a95ec1636a871447dfe99463b769339c7}{set\_pointsize}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} pointsize = 1.0);}
+\DoxyCodeLine{278 }
+\DoxyCodeLine{280   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af81087e5b9753620d73b66f6229d2646}{PointSize}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} pointsize = 1.0)}
+\DoxyCodeLine{281                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a95ec1636a871447dfe99463b769339c7}{set\_pointsize}}(pointsize); \}}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{284   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a4b7245b12dad1c0ef326e5f59eb83001}{set\_grid}} ();}
+\DoxyCodeLine{285 }
+\DoxyCodeLine{287   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a8b9a16d5793c3f4939b917b2c263860c}{unset\_grid}} ();    }
+\DoxyCodeLine{288 }
+\DoxyCodeLine{290   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aba6c206ff95d6d7377627f8545ca62c1}{Grid}}(\textcolor{keywordtype}{bool} \_fgrid = 1) }
+\DoxyCodeLine{291                         \{ \textcolor{keywordflow}{if}(fgrid = \_fgrid) }
+\DoxyCodeLine{292                             \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a4b7245b12dad1c0ef326e5f59eb83001}{set\_grid}}(); }
+\DoxyCodeLine{293                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{294                             \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a8b9a16d5793c3f4939b917b2c263860c}{unset\_grid}}(); \}}
+\DoxyCodeLine{295 }
+\DoxyCodeLine{297   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a671cbe7b18a267ea59f532c83a0035f6}{set\_samples}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} samples = 100);}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{300   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a5fe518307dfcca82468b7e6279408525}{Samples}}(\textcolor{keyword}{const} \textcolor{keywordtype}{int} samples = 100) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a671cbe7b18a267ea59f532c83a0035f6}{set\_samples}}(samples); \}}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{303   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ab810fa4c02fb49ae197786c305b78702}{set\_isosamples}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} isolines = 10);}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{306   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a14c7ba149d3e9f523d15bb1fd66445e9}{IsoSamples}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} isolines = 10)\{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_ab810fa4c02fb49ae197786c305b78702}{set\_isosamples}}(isolines); \}}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{309   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a5ada5c76db0a735d3d331caa0eb4968a}{set\_hidden3d}} ();}
+\DoxyCodeLine{310 }
+\DoxyCodeLine{312   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a763ff17df1679cc2b1463b024aa89ebc}{unset\_hidden3d}} ();        \textcolor{comment}{// hidden3d nao e setado por padrao (default)}}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{315   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a42195fcdfc544df50d7d412f2918c218}{Hidden3d}}(\textcolor{keywordtype}{bool} \_fhidden3d = 1) }
+\DoxyCodeLine{316                         \{ \textcolor{keywordflow}{if}(fhidden3d = \_fhidden3d) }
+\DoxyCodeLine{317                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a5ada5c76db0a735d3d331caa0eb4968a}{set\_hidden3d}}(); }
+\DoxyCodeLine{318                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{319                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a763ff17df1679cc2b1463b024aa89ebc}{unset\_hidden3d}}();}
+\DoxyCodeLine{320                         \}}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{324   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af845efc728a90d7e10de764eff0b2423}{set\_contour}} (\textcolor{keyword}{const} std::string \& position = \textcolor{stringliteral}{"{}base"{}});}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{327   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a39d10e6ce85875939a9c594d132a10d7}{unset\_contour}} ();      \textcolor{comment}{// contour nao e setado por default}}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{331   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aac76a01e16642ca0415b32a2fd4c93be}{Contour}}(\textcolor{keyword}{const} std::string \& position = \textcolor{stringliteral}{"{}base"{}}) }
+\DoxyCodeLine{332                                                 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_af845efc728a90d7e10de764eff0b2423}{set\_contour}}(position); \} }
+\DoxyCodeLine{333                     }
+\DoxyCodeLine{334   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aac76a01e16642ca0415b32a2fd4c93be}{Contour}}( \textcolor{keywordtype}{int} \_fcontour ) }
+\DoxyCodeLine{335                         \{ \textcolor{keywordflow}{if}( fcontour = \_fcontour )}
+\DoxyCodeLine{336                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_af845efc728a90d7e10de764eff0b2423}{set\_contour}}(); }
+\DoxyCodeLine{337                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{338                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a39d10e6ce85875939a9c594d132a10d7}{unset\_contour}}();}
+\DoxyCodeLine{339                                                 \}  }
+\DoxyCodeLine{341   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a0e36dcd81618234c6cdd135a9e1eee2b}{set\_surface}} ();      \textcolor{comment}{// surface e setado por padrao (default)}}
+\DoxyCodeLine{342 }
+\DoxyCodeLine{344   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a805f1807c9b3a0a6745d66fa1729e3be}{unset\_surface}} ();}
+\DoxyCodeLine{345 }
+\DoxyCodeLine{347   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ad5367a586328205bc451a958db705274}{Surface}}( \textcolor{keywordtype}{int} \_fsurface = 1 ) }
+\DoxyCodeLine{348                         \{ \textcolor{keywordflow}{if}(fsurface = \_fsurface) }
+\DoxyCodeLine{349                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a0e36dcd81618234c6cdd135a9e1eee2b}{set\_surface}}(); }
+\DoxyCodeLine{350                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{351                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a805f1807c9b3a0a6745d66fa1729e3be}{unset\_surface}}();}
+\DoxyCodeLine{352                         \}}
+\DoxyCodeLine{355   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ad64a717dac18167f656c4f09239973f8}{set\_legend}} (\textcolor{keyword}{const} std::string \& position = \textcolor{stringliteral}{"{}default"{}});    }
+\DoxyCodeLine{356 }
+\DoxyCodeLine{358   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a584e0710d7f5bcaa35653d1987f1563e}{unset\_legend}} ();}
+\DoxyCodeLine{359 }
+\DoxyCodeLine{361   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a2b9ba1e2d6babf020158c042eefdff76}{Legend}}(\textcolor{keyword}{const} std::string \& position = \textcolor{stringliteral}{"{}default"{}}) }
+\DoxyCodeLine{362                                                 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_ad64a717dac18167f656c4f09239973f8}{set\_legend}}(position); \}}
+\DoxyCodeLine{363 }
+\DoxyCodeLine{365   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af2f2bf238db3ebce2d92cd6ca95c1466}{Legend}}(\textcolor{keywordtype}{int} \_flegend) }
+\DoxyCodeLine{366                         \{ \textcolor{keywordflow}{if}(flegend = \_flegend) }
+\DoxyCodeLine{367                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_ad64a717dac18167f656c4f09239973f8}{set\_legend}}(); }
+\DoxyCodeLine{368                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{369                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a584e0710d7f5bcaa35653d1987f1563e}{unset\_legend}}();}
+\DoxyCodeLine{370                         \}}
+\DoxyCodeLine{371 }
+\DoxyCodeLine{373   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aa693e806a115af1e2776a15078e75b46}{set\_title}} (\textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{374 }
+\DoxyCodeLine{376   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a0d205a55ae104403292622b49af14ae7}{unset\_title}} ();      \textcolor{comment}{// O title nao e setado por padrao (default)}}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{379   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a83804130dca9267a667220852eb1a181}{Title}}(\textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}}) }
+\DoxyCodeLine{380                                                 \{ }
+\DoxyCodeLine{381                          \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aa693e806a115af1e2776a15078e75b46}{set\_title}}(title); }
+\DoxyCodeLine{382                         \}}
+\DoxyCodeLine{383   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a83804130dca9267a667220852eb1a181}{Title}}(\textcolor{keywordtype}{int} \_ftitle) }
+\DoxyCodeLine{384                                                 \{ }
+\DoxyCodeLine{385                          \textcolor{keywordflow}{if}(ftitle = \_ftitle)  }
+\DoxyCodeLine{386                            \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aa693e806a115af1e2776a15078e75b46}{set\_title}}();}
+\DoxyCodeLine{387                          \textcolor{keywordflow}{else}}
+\DoxyCodeLine{388                            \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a0d205a55ae104403292622b49af14ae7}{unset\_title}}(); }
+\DoxyCodeLine{389                         \}}
+\DoxyCodeLine{390     }
+\DoxyCodeLine{392   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a7654b86e3873aec4c5101abb466fe4ab}{set\_ylabel}} (\textcolor{keyword}{const} std::string \& label = \textcolor{stringliteral}{"{}y"{}});}
+\DoxyCodeLine{393 }
+\DoxyCodeLine{396   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a8e7fb34039d3252f01d3e78a44d6af08}{YLabel}}(\textcolor{keyword}{const} std::string \& label = \textcolor{stringliteral}{"{}y"{}})}
+\DoxyCodeLine{397                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a7654b86e3873aec4c5101abb466fe4ab}{set\_ylabel}}(label); \}}
+\DoxyCodeLine{398 }
+\DoxyCodeLine{400   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a58808028aec03a22b5c19693b14baeef}{set\_xlabel}} (\textcolor{keyword}{const} std::string \& label = \textcolor{stringliteral}{"{}x"{}});}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{403   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aefb9c21bd11f2dd6724be22c8aba98bb}{XLabel}}(\textcolor{keyword}{const} std::string \& label = \textcolor{stringliteral}{"{}x"{}})}
+\DoxyCodeLine{404                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a58808028aec03a22b5c19693b14baeef}{set\_xlabel}}(label); \}}
+\DoxyCodeLine{405 }
+\DoxyCodeLine{407   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ab3206e715d20f05cc0dd1eec89ce8b07}{set\_zlabel}} (\textcolor{keyword}{const} std::string \& label = \textcolor{stringliteral}{"{}z"{}});}
+\DoxyCodeLine{408 }
+\DoxyCodeLine{410   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a74cd41eda01e17ab43cf8dcbe145333e}{ZLabel}}(\textcolor{keyword}{const} std::string \& label = \textcolor{stringliteral}{"{}z"{}})}
+\DoxyCodeLine{411                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_ab3206e715d20f05cc0dd1eec89ce8b07}{set\_zlabel}}(label); \}}
+\DoxyCodeLine{412   }
+\DoxyCodeLine{414   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a726232ac7226b9fc8811eaefa87c902b}{set\_xrange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo);}
+\DoxyCodeLine{415 }
+\DoxyCodeLine{417   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_acee07201a6f6c3cf40b87bee425058c0}{XRange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo) }
+\DoxyCodeLine{418                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a726232ac7226b9fc8811eaefa87c902b}{set\_xrange}}(iFrom,iTo); \}}
+\DoxyCodeLine{419   }
+\DoxyCodeLine{421   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af621a43664a07523f098ffc3fb5a99b0}{set\_yrange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo);}
+\DoxyCodeLine{422 }
+\DoxyCodeLine{424   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ada2935405def74527ec9d86eebb88aad}{YRange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo) }
+\DoxyCodeLine{425                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_af621a43664a07523f098ffc3fb5a99b0}{set\_yrange}}(iFrom,iTo); \}}
+\DoxyCodeLine{426 }
+\DoxyCodeLine{428   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a91666451b8cfd1c5b279d2e585b11af6}{set\_zrange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo);}
+\DoxyCodeLine{429 }
+\DoxyCodeLine{431   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a58ce69438ac8f8b525c90a282228368f}{ZRange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo) }
+\DoxyCodeLine{432                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a91666451b8cfd1c5b279d2e585b11af6}{set\_zrange}}(iFrom,iTo); \}}
+\DoxyCodeLine{433 }
+\DoxyCodeLine{435   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a453688dc2eb979f842082290f3c02ac3}{set\_xautoscale}} ();}
+\DoxyCodeLine{436 }
+\DoxyCodeLine{438   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ab7c7f50c7b7a55ffc9b87ff892d2b2b6}{XAutoscale}}()          \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a453688dc2eb979f842082290f3c02ac3}{set\_xautoscale}} (); \}}
+\DoxyCodeLine{439 }
+\DoxyCodeLine{441   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a3cc19dba32bb2d3ac59494ae1493faa7}{set\_yautoscale}} ();}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{444   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af84a02a03a3c7c76fb8ea2364ad89546}{YAutoscale}}()          \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a3cc19dba32bb2d3ac59494ae1493faa7}{set\_yautoscale}} (); \}}
+\DoxyCodeLine{445 }
+\DoxyCodeLine{447   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ad72aa208fad039b6b7d13ea9595ce157}{set\_zautoscale}} ();}
+\DoxyCodeLine{448 }
+\DoxyCodeLine{450   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a8d5f375097a968d169ecbf294af0c4b2}{ZAutoscale}}()          \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_ad72aa208fad039b6b7d13ea9595ce157}{set\_zautoscale}} (); \}}
+\DoxyCodeLine{451 }
+\DoxyCodeLine{453   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aff546fad227d93babeb5d2cc9f047b89}{set\_xlogscale}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} base = 10);}
+\DoxyCodeLine{454 }
+\DoxyCodeLine{456   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aed8f962539fd8f53ab2c0218da7a6010}{unset\_xlogscale}} ();}
+\DoxyCodeLine{457 }
+\DoxyCodeLine{459   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a4a26f10f3d11eedcefa1582140144841}{XLogscale}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} base = 10) \{ \textcolor{comment}{//if(base)}}
+\DoxyCodeLine{460                             \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aff546fad227d93babeb5d2cc9f047b89}{set\_xlogscale}} (base);}
+\DoxyCodeLine{461                             \textcolor{comment}{//else}}
+\DoxyCodeLine{462                                                     \textcolor{comment}{//return unset\_xlogscale ();}}
+\DoxyCodeLine{463                                                 \}}
+\DoxyCodeLine{464 }
+\DoxyCodeLine{466   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a1c713ae32678d4ada2b170bf774f8f8c}{XLogscale}}(\textcolor{keywordtype}{bool} \_fxlogscale) }
+\DoxyCodeLine{467                             \{ \textcolor{keywordflow}{if}(fxlogscale = \_fxlogscale) }
+\DoxyCodeLine{468                                 \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aff546fad227d93babeb5d2cc9f047b89}{set\_xlogscale}}(); }
+\DoxyCodeLine{469                               \textcolor{keywordflow}{else} }
+\DoxyCodeLine{470                                 \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aed8f962539fd8f53ab2c0218da7a6010}{unset\_xlogscale}}();}
+\DoxyCodeLine{471                             \}}
+\DoxyCodeLine{472 }
+\DoxyCodeLine{474   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a201a802d2f27fece0d39809c4eb3bce0}{set\_ylogscale}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} base = 10);}
+\DoxyCodeLine{475 }
+\DoxyCodeLine{477   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aad6e2709ed492e4bf5d587143881c8b2}{YLogscale}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} base = 10) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a201a802d2f27fece0d39809c4eb3bce0}{set\_ylogscale}} (base); \}}
+\DoxyCodeLine{478 }
+\DoxyCodeLine{480   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a74ebc96273b30c98fb9c8f047dd34ac0}{unset\_ylogscale}} ();}
+\DoxyCodeLine{481 }
+\DoxyCodeLine{483   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a391e01377127dab11cb7fb3ecbecd2fd}{YLogscale}}(\textcolor{keywordtype}{bool} \_fylogscale) }
+\DoxyCodeLine{484                         \{ \textcolor{keywordflow}{if}(fylogscale = \_fylogscale) }
+\DoxyCodeLine{485                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a201a802d2f27fece0d39809c4eb3bce0}{set\_ylogscale}}(); }
+\DoxyCodeLine{486                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{487                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a74ebc96273b30c98fb9c8f047dd34ac0}{unset\_ylogscale}}();}
+\DoxyCodeLine{488                         \}}
+\DoxyCodeLine{489 }
+\DoxyCodeLine{491   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a1da3838163b0dbde8809b55c5b5c56b1}{set\_zlogscale}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} base = 10);}
+\DoxyCodeLine{492 }
+\DoxyCodeLine{494   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ac223d0668c8a0b361ac67eb949224cd4}{ZLogscale}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} base = 10) \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a1da3838163b0dbde8809b55c5b5c56b1}{set\_zlogscale}} (base); \}}
+\DoxyCodeLine{495 }
+\DoxyCodeLine{497   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a294d7473091f849fe70e4dba8df8712a}{unset\_zlogscale}} ();}
+\DoxyCodeLine{498 }
+\DoxyCodeLine{500   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a377c6088dd9c9378eafb260e993c35c1}{ZLogscale}}(\textcolor{keywordtype}{bool} \_fzlogscale) }
+\DoxyCodeLine{501                         \{ \textcolor{keywordflow}{if}(fzlogscale = \_fzlogscale) }
+\DoxyCodeLine{502                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a1da3838163b0dbde8809b55c5b5c56b1}{set\_zlogscale}}(); }
+\DoxyCodeLine{503                           \textcolor{keywordflow}{else} }
+\DoxyCodeLine{504                               \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a294d7473091f849fe70e4dba8df8712a}{unset\_zlogscale}}();}
+\DoxyCodeLine{505                         \}}
+\DoxyCodeLine{506 }
+\DoxyCodeLine{507   }
+\DoxyCodeLine{509   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a2c8c8ae0441f54dd728bc6594051c137}{set\_cbrange}} (\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo);}
+\DoxyCodeLine{510 }
+\DoxyCodeLine{512   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a72c287667a80e2dfa8275688c93db056}{CBRange}}(\textcolor{keyword}{const} \textcolor{keywordtype}{int} iFrom, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iTo)}
+\DoxyCodeLine{513                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a2c8c8ae0441f54dd728bc6594051c137}{set\_cbrange}}(iFrom, iTo); \}}
+\DoxyCodeLine{514 }
+\DoxyCodeLine{515   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{517 \textcolor{comment}{}  \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a4ca35415fa5560764597cfdfa46c6c40}{plotfile\_x}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{518           \textcolor{keyword}{const} \textcolor{keywordtype}{int} column = 1, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{519 }
+\DoxyCodeLine{521   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ac9383787c3831cada55dd081b0592857}{PlotFile}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{522           \textcolor{keyword}{const} \textcolor{keywordtype}{int} column = 1, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{523                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a4ca35415fa5560764597cfdfa46c6c40}{plotfile\_x}}(filename, column, title); \}}
+\DoxyCodeLine{524 }
+\DoxyCodeLine{526   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a9400d43204b9df62851c063aee604f0d}{plot\_x}} (\textcolor{keyword}{const} std::vector < double >\&x, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{527 }
+\DoxyCodeLine{529   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ac80f65502e2af281ae7c8c4a73d604d8}{PlotVector}} (\textcolor{keyword}{const} std::vector < double >\&x, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{530                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a9400d43204b9df62851c063aee604f0d}{plot\_x}}( x, title ); \} }
+\DoxyCodeLine{531 }
+\DoxyCodeLine{533   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af226f395310d3c5c4f8b4d2aaf5d8823}{plotfile\_xy}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{534            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_x = 1,}
+\DoxyCodeLine{535            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_y = 2, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{537   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ac19856a234621520bf08ce5d0105d436}{PlotFile}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{538            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_x = 1,}
+\DoxyCodeLine{539            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_y = 2, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{540                         \{ }
+\DoxyCodeLine{541                         \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_af226f395310d3c5c4f8b4d2aaf5d8823}{plotfile\_xy}}(filename, column\_x, column\_y, title );}
+\DoxyCodeLine{542                         \} }
+\DoxyCodeLine{543 }
+\DoxyCodeLine{545   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a777b6a5474951d6d023dff4237d80a2b}{plot\_xy}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{546        \textcolor{keyword}{const} std::vector < double >\&y, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{547 }
+\DoxyCodeLine{549   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aefa64bbed449a6c7c1eb1fabb392d3f6}{PlotVector}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{550        \textcolor{keyword}{const} std::vector < double >\&y, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{551                         \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a777b6a5474951d6d023dff4237d80a2b}{plot\_xy}} ( x, y,title ); \}}
+\DoxyCodeLine{552 }
+\DoxyCodeLine{554   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a33ab4bb031fa6a6b798c90a9089648e9}{plotfile\_xy\_err}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{555            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_x = 1,}
+\DoxyCodeLine{556            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_y = 2,}
+\DoxyCodeLine{557            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_dy = 3, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{558 }
+\DoxyCodeLine{560   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_abe9f9f5301c1dcc35acecbf854623085}{PlotFileXYErrorBar}}(\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{561            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_x = 1,}
+\DoxyCodeLine{562            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_y = 2,}
+\DoxyCodeLine{563            \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_dy = 3, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{564                           \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a33ab4bb031fa6a6b798c90a9089648e9}{plotfile\_xy\_err}}(filename,}
+\DoxyCodeLine{565                             column\_x, column\_y, column\_dy, title ); \} }
+\DoxyCodeLine{566 }
+\DoxyCodeLine{568   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a3dd3934b09094a9ba48035a2edf4d4fd}{plot\_xy\_err}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{569            \textcolor{keyword}{const} std::vector < double >\&y,}
+\DoxyCodeLine{570            \textcolor{keyword}{const} std::vector < double >\&dy,}
+\DoxyCodeLine{571            \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{572 }
+\DoxyCodeLine{574   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ac19dffd0bd609bb8de3cc29250d9f4dd}{PlotVectorXYErrorBar}}(\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{575            \textcolor{keyword}{const} std::vector < double >\&y,}
+\DoxyCodeLine{576            \textcolor{keyword}{const} std::vector < double >\&dy,}
+\DoxyCodeLine{577            \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{578                             \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a3dd3934b09094a9ba48035a2edf4d4fd}{plot\_xy\_err}}(x, y, dy, title); \}}
+\DoxyCodeLine{579 }
+\DoxyCodeLine{581   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_abd1c17c49fc59979a1143384c77c5b66}{plotfile\_xyz}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{582         \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_x = 1,}
+\DoxyCodeLine{583         \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_y = 2,}
+\DoxyCodeLine{584         \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_z = 3, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{586   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a75a67ae376eb94892aa5ba48ae6c29c5}{PlotFile}} (\textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{587         \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_x = 1,}
+\DoxyCodeLine{588         \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_y = 2,}
+\DoxyCodeLine{589         \textcolor{keyword}{const} \textcolor{keywordtype}{int} column\_z = 3, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{590                             \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_abd1c17c49fc59979a1143384c77c5b66}{plotfile\_xyz}}(filename, column\_x,}
+\DoxyCodeLine{591                               column\_y,column\_z); \}}
+\DoxyCodeLine{592 }
+\DoxyCodeLine{594   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_aee30f21a00a4f31c8356a2ef1f0e26e3}{plot\_xyz}} (\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{595         \textcolor{keyword}{const} std::vector < double >\&y,}
+\DoxyCodeLine{596         \textcolor{keyword}{const} std::vector < double >\&z, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{597 }
+\DoxyCodeLine{599   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a2b2b8d5ffa6e9f0cc06617449e84c286}{PlotVector}}(\textcolor{keyword}{const} std::vector < double >\&x,}
+\DoxyCodeLine{600         \textcolor{keyword}{const} std::vector < double >\&y,}
+\DoxyCodeLine{601         \textcolor{keyword}{const} std::vector < double >\&z, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{602                             \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_aee30f21a00a4f31c8356a2ef1f0e26e3}{plot\_xyz}}(x, y, z, title); \}}
+\DoxyCodeLine{603 }
+\DoxyCodeLine{605   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a51ea5105eb87285820bb93910f8d346c}{plot\_slope}} (\textcolor{keyword}{const} \textcolor{keywordtype}{double} a, \textcolor{keyword}{const} \textcolor{keywordtype}{double} b, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{606 }
+\DoxyCodeLine{608   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_af4912dcec86b05a74b27c30adddc5113}{PlotSlope}}  (\textcolor{keyword}{const} \textcolor{keywordtype}{double} a, \textcolor{keyword}{const} \textcolor{keywordtype}{double} b, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{609                             \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a51ea5105eb87285820bb93910f8d346c}{plot\_slope}}(a,b,title); \}}
+\DoxyCodeLine{610 }
+\DoxyCodeLine{633   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a42dfb8c9d4636745c7be277ed818e849}{plot\_equation}} (\textcolor{keyword}{const} std::string \& equation,}
+\DoxyCodeLine{634          \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{635 }
+\DoxyCodeLine{640   \textcolor{comment}{// Deve receber um CFuncao, que tem cast para string.}}
+\DoxyCodeLine{641   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a54a8351d4ea06e4873a73fa200835380}{PlotEquation}}(\textcolor{keyword}{const} std::string \& equation,}
+\DoxyCodeLine{642          \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{643                           \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a42dfb8c9d4636745c7be277ed818e849}{plot\_equation}}( equation, title ); \}}
+\DoxyCodeLine{644 }
+\DoxyCodeLine{647   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a79aed3a6927f7d1d3497cba441e8a943}{plot\_equation3d}} (\textcolor{keyword}{const} std::string \& equation, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{648 }
+\DoxyCodeLine{651   \textcolor{comment}{// gnuplot-\/>PlotEquation3d(CPolinomio());}}
+\DoxyCodeLine{652   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a1bd342bc27ae0d3155bfb4847431f5a3}{PlotEquation3d}} (\textcolor{keyword}{const} std::string \& equation,}
+\DoxyCodeLine{653            \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{654                           \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_a79aed3a6927f7d1d3497cba441e8a943}{plot\_equation3d}}( equation, title ); \}}
+\DoxyCodeLine{655 }
+\DoxyCodeLine{657   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_ab71117b8fa74d53ea20c313717d86b5c}{plot\_image}} (\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *ucPicBuf,}
+\DoxyCodeLine{658           \textcolor{keyword}{const} \textcolor{keywordtype}{int} iWidth, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iHeight, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{659 }
+\DoxyCodeLine{661   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  \mbox{\hyperlink{class_gnuplot_a93fa9569c46f615840fcb364a29059a9}{PlotImage}} (\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *ucPicBuf,}
+\DoxyCodeLine{662             \textcolor{keyword}{const} \textcolor{keywordtype}{int} iWidth, \textcolor{keyword}{const} \textcolor{keywordtype}{int} iHeight, \textcolor{keyword}{const} std::string \& title = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{663                                               \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{class_gnuplot_ab71117b8fa74d53ea20c313717d86b5c}{plot\_image}} (ucPicBuf, iWidth, iHeight, title); \}}
+\DoxyCodeLine{664 }
+\DoxyCodeLine{665   \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{666   \textcolor{comment}{// Repete o ultimo comando de plotagem, seja plot (2D) ou splot (3D)}}
+\DoxyCodeLine{667   \textcolor{comment}{// Usado para visualizar plotagens, após mudar algumas opcoes de plotagem}}
+\DoxyCodeLine{668   \textcolor{comment}{// ou quando gerando o mesmo grafico para diferentes dispositivos (showonscreen, savetops)}}
+\DoxyCodeLine{669   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  replot ();}
+\DoxyCodeLine{670 }
+\DoxyCodeLine{671   \textcolor{comment}{// Repete o ultimo comando de plotagem, seja plot (2D) ou splot (3D)}}
+\DoxyCodeLine{672   \textcolor{comment}{// Usado para visualizar plotagens, após mudar algumas opcoes de plotagem}}
+\DoxyCodeLine{673   \textcolor{comment}{// ou quando gerando o mesmo grafico para diferentes dispositivos (showonscreen, savetops)}}
+\DoxyCodeLine{674   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  Replot()                \{ \textcolor{keywordflow}{return} replot(); \}}
+\DoxyCodeLine{675 }
+\DoxyCodeLine{676   \textcolor{comment}{// Reseta uma sessao do gnuplot (próxima plotagem apaga definicoes previas)}}
+\DoxyCodeLine{677   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  reset\_plot ();}
+\DoxyCodeLine{678 }
+\DoxyCodeLine{679   \textcolor{comment}{// Reseta uma sessao do gnuplot (próxima plotagem apaga definicoes previas)}}
+\DoxyCodeLine{680   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  ResetPlot()             \{ \textcolor{keywordflow}{return} reset\_plot(); \}}
+\DoxyCodeLine{681 }
+\DoxyCodeLine{682   \textcolor{comment}{// Chama função reset do gnuplot}}
+\DoxyCodeLine{683   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  Reset()             \{ this-\/>\mbox{\hyperlink{class_gnuplot_a07607803ede8dd5416906df0a1924fc5}{cmd}}(\textcolor{stringliteral}{"{}reset"{}}); \textcolor{keywordflow}{return} *\textcolor{keyword}{this}; \}}
+\DoxyCodeLine{684 }
+\DoxyCodeLine{685   \textcolor{comment}{// Reseta uma sessao do gnuplot e seta todas as variaveis para o default}}
+\DoxyCodeLine{686   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  reset\_all ();}
+\DoxyCodeLine{687 }
+\DoxyCodeLine{688   \textcolor{comment}{// Reseta uma sessao do gnuplot e seta todas as variaveis para o default}}
+\DoxyCodeLine{689   \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \&  ResetAll ()             \{ \textcolor{keywordflow}{return} reset\_all(); \}}
+\DoxyCodeLine{690 }
+\DoxyCodeLine{691   \textcolor{comment}{// Verifica se a sessao esta valida}}
+\DoxyCodeLine{692   \textcolor{keywordtype}{bool}  is\_valid ();}
+\DoxyCodeLine{693 }
+\DoxyCodeLine{694   \textcolor{comment}{// Verifica se a sessao esta valida}}
+\DoxyCodeLine{695   \textcolor{keywordtype}{bool}  IsValid ()              \{ \textcolor{keywordflow}{return} is\_valid (); \};}
+\DoxyCodeLine{696 }
+\DoxyCodeLine{697 \};}
+\DoxyCodeLine{698 \textcolor{keyword}{typedef} \mbox{\hyperlink{class_gnuplot}{Gnuplot}} \mbox{\hyperlink{class_gnuplot}{CGnuplot}};}
+\DoxyCodeLine{699 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{700 }
+
+\end{DoxyCode}
