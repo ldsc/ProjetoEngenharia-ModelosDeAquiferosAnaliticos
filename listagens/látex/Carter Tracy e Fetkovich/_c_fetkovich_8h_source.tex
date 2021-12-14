@@ -1,0 +1,33 @@
+\hypertarget{_c_fetkovich_8h_source}{}\doxysection{CFetkovich.\+h}
+\label{_c_fetkovich_8h_source}\index{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/Carter\&Fetkovic/CFetkovich.h@{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/Carter\&Fetkovic/CFetkovich.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CFETKOVICH\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CFETKOVICH\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}CAdimensional.h"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }\mbox{\hyperlink{class_c_fetkovich}{CFetkovich}} : \mbox{\hyperlink{class_c_adimensional}{CAdimensional}}\{}
+\DoxyCodeLine{9     }
+\DoxyCodeLine{10     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{11         }
+\DoxyCodeLine{12         std::vector <double>  WeFet;}
+\DoxyCodeLine{13         \textcolor{keywordtype}{double} Pan, deltaWen;}
+\DoxyCodeLine{14         }
+\DoxyCodeLine{15     \textcolor{keyword}{public}:}
+\DoxyCodeLine{16         }
+\DoxyCodeLine{17         \mbox{\hyperlink{class_c_fetkovich}{CFetkovich}}()\{\};}
+\DoxyCodeLine{18         }
+\DoxyCodeLine{19         \textcolor{keywordtype}{double} CalcPan(\textcolor{keywordtype}{double} \_Pi, \textcolor{keywordtype}{double} \_We, \textcolor{keywordtype}{double} \_Wei);}
+\DoxyCodeLine{20         \textcolor{keywordtype}{double} CalcdeltaWen(\textcolor{keywordtype}{double} \_Wei, \textcolor{keywordtype}{double} \_Pi, \textcolor{keywordtype}{double} \_Pan, \textcolor{keywordtype}{double} \_Pbarra, \textcolor{keywordtype}{double} \_J, \textcolor{keywordtype}{double} \_DeltaT);}
+\DoxyCodeLine{21         std::vector <double> CalcFetkovic(\textcolor{keywordtype}{double} \_We, \textcolor{keywordtype}{double} \_Wei, std::vector <double> \_Pbarra, \textcolor{keywordtype}{double} \_J, std::vector <double> \_DeltaT, std::vector <double> \_P);}
+\DoxyCodeLine{22         }
+\DoxyCodeLine{23         \mbox{\hyperlink{class_c_fetkovich}{\string~CFetkovich}}()\{\};}
+\DoxyCodeLine{24         }
+\DoxyCodeLine{25 \};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

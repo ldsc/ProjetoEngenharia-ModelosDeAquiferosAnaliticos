@@ -1,0 +1,51 @@
+\hypertarget{_c_solver_influxo_8h_source}{}\doxysection{CSolver\+Influxo.\+h}
+\label{_c_solver_influxo_8h_source}\index{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/Carter\&Fetkovic/CSolverInfluxo.h@{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/Carter\&Fetkovic/CSolverInfluxo.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CEXECUTA\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CEXECUTA\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}CRocha.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}CPoco.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}CFluido.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}CFetkovich.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}CCarterTracy.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}CAdimensional.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}CGnuplot.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}CReservatorio.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}CCarterTracy.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{class }\mbox{\hyperlink{class_c_solver_influxo}{CSolverInfluxo}}\{}
+\DoxyCodeLine{17     }
+\DoxyCodeLine{18     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{19         }
+\DoxyCodeLine{20         std::vector <double> P, T;}
+\DoxyCodeLine{21         }
+\DoxyCodeLine{22         \textcolor{keywordtype}{int} fluxo;}
+\DoxyCodeLine{23         }
+\DoxyCodeLine{24         \mbox{\hyperlink{class_gnuplot}{CGnuplot}} plot\_carter, plot\_fetkovich;}
+\DoxyCodeLine{25         \mbox{\hyperlink{class_c_fluido}{CFluido}} fluido;}
+\DoxyCodeLine{26         \mbox{\hyperlink{class_c_poco}{CPoco}} poco;}
+\DoxyCodeLine{27         \mbox{\hyperlink{class_c_rocha}{CRocha}} rocha;}
+\DoxyCodeLine{28         \mbox{\hyperlink{class_c_reservatorio}{CReservatorio}} reservatorio;}
+\DoxyCodeLine{29         \mbox{\hyperlink{class_c_carter_tracy}{CCarterTracy}} carter;}
+\DoxyCodeLine{30         \mbox{\hyperlink{class_c_fetkovich}{CFetkovich}} fetkovich;}
+\DoxyCodeLine{31         \mbox{\hyperlink{class_c_adimensional}{CAdimensional}} adimensional;}
+\DoxyCodeLine{32         }
+\DoxyCodeLine{33         }
+\DoxyCodeLine{34     \textcolor{keyword}{public}:}
+\DoxyCodeLine{35     }
+\DoxyCodeLine{36         \mbox{\hyperlink{class_c_solver_influxo}{CSolverInfluxo}}()\{\};}
+\DoxyCodeLine{37         }
+\DoxyCodeLine{38         \textcolor{keywordtype}{void} EntradaDados();}
+\DoxyCodeLine{39         \textcolor{keywordtype}{void} Executa();}
+\DoxyCodeLine{40         }
+\DoxyCodeLine{41         \mbox{\hyperlink{class_c_solver_influxo}{\string~CSolverInfluxo}}()\{\};}
+\DoxyCodeLine{42     }
+\DoxyCodeLine{43 \};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

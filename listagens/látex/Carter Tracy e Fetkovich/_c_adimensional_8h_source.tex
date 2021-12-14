@@ -1,0 +1,39 @@
+\hypertarget{_c_adimensional_8h_source}{}\doxysection{CAdimensional.\+h}
+\label{_c_adimensional_8h_source}\index{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/Carter\&Fetkovic/CAdimensional.h@{C:/Users/rodriguinho/Desktop/Rodrigo-\/Thalia-\/cpp/Carter\&Fetkovic/CAdimensional.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef CADIMENSIONAL\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define CADIMENSIONAL\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{class }\mbox{\hyperlink{class_c_adimensional}{CAdimensional}}\{}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{9     }
+\DoxyCodeLine{10         std::vector <double> delT, deltPbarra, TD, delP, TDA, PD, PDbarra, WE; }
+\DoxyCodeLine{11         \textcolor{keywordtype}{double} U, J, We, Wei;}
+\DoxyCodeLine{12     }
+\DoxyCodeLine{13     \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15         \mbox{\hyperlink{class_c_adimensional}{CAdimensional}}()\{\};}
+\DoxyCodeLine{16         }
+\DoxyCodeLine{17         std::vector <double> DeltaT(std::vector <double> \_t);}
+\DoxyCodeLine{18         std::vector <double> DeltaPbarra(std::vector <double> \_Pbarra);}
+\DoxyCodeLine{19         std::vector <double> CalcTD(\textcolor{keywordtype}{double} \_k, \textcolor{keywordtype}{double} \_phi, \textcolor{keywordtype}{double} \_mi, \textcolor{keywordtype}{double}  \_ct, \textcolor{keywordtype}{double} \_Ro, std::vector <double> \_t);}
+\DoxyCodeLine{20         std::vector <double> CalcdelP(std::vector <double> \_P);}
+\DoxyCodeLine{21         std::vector <double> CalcTDA(\textcolor{keywordtype}{double} \_Ro, \textcolor{keywordtype}{double} \_Re,std::vector <double> \_TD);}
+\DoxyCodeLine{22         std::vector <double> CalcPD(std::vector <double> \_TDA, std::vector <double> \_TD, \textcolor{keywordtype}{double} \_Re, \textcolor{keywordtype}{double} \_Ro);}
+\DoxyCodeLine{23         std::vector <double> CalcPDbarra(std::vector <double> \_TDA, std::vector <double> \_TD, \textcolor{keywordtype}{double} \_Re, \textcolor{keywordtype}{double} \_Ro);}
+\DoxyCodeLine{24         \textcolor{keywordtype}{double} CalcU(\textcolor{keywordtype}{double} \_phi, \textcolor{keywordtype}{double} \_ct, \textcolor{keywordtype}{double} \_h, \textcolor{keywordtype}{double} \_Ro);}
+\DoxyCodeLine{25         \textcolor{keywordtype}{double} CalcJ(\textcolor{keywordtype}{double} \_k, \textcolor{keywordtype}{double} \_h, \textcolor{keywordtype}{double} \_Re, \textcolor{keywordtype}{double} \_Ro, \textcolor{keywordtype}{double} \_mi, \textcolor{keywordtype}{bool} \_regime);}
+\DoxyCodeLine{26         \textcolor{keywordtype}{double} CalcWe(\textcolor{keywordtype}{double} \_Re, \textcolor{keywordtype}{double} \_Ro, \textcolor{keywordtype}{double} \_h, \textcolor{keywordtype}{double} \_phi);}
+\DoxyCodeLine{27         \textcolor{keywordtype}{double} CalcWei(\textcolor{keywordtype}{double} \_ct, \textcolor{keywordtype}{double} \_WI, \textcolor{keywordtype}{double} \_Pi);}
+\DoxyCodeLine{28         }
+\DoxyCodeLine{29         \mbox{\hyperlink{class_c_adimensional}{\string~CAdimensional}}()\{\};}
+\DoxyCodeLine{30     }
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
